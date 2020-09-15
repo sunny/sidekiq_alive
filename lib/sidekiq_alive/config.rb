@@ -11,7 +11,8 @@ module SidekiqAlive
                   :callback,
                   :registered_instance_key,
                   :queue_prefix,
-                  :server
+                  :server,
+                  :enabled
 
     def initialize
       set_defaults
@@ -26,10 +27,15 @@ module SidekiqAlive
       @registered_instance_key = 'SIDEKIQ_REGISTERED_INSTANCE'
       @queue_prefix = :sidekiq_alive
       @server = ENV['SIDEKIQ_ALIVE_SERVER'] || 'webrick'
+      @enabled = !ENV['DISABLE_SIDEKIQ_ALIVE']
     end
 
     def registration_ttl
       @registration_ttl || time_to_live + 60
+    end
+
+    def enabled?
+      @enabled
     end
   end
 end

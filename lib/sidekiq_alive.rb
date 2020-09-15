@@ -6,6 +6,8 @@ require 'sidekiq_alive/config'
 
 module SidekiqAlive
   def self.start
+    return unless config.enabled?
+
     SidekiqAlive::Worker.sidekiq_options queue: current_queue
     Sidekiq.configure_server do |sq_config|
 
@@ -156,4 +158,4 @@ end
 require 'sidekiq_alive/worker'
 require 'sidekiq_alive/server'
 
-SidekiqAlive.start unless ENV['DISABLE_SIDEKIQ_ALIVE']
+SidekiqAlive.start

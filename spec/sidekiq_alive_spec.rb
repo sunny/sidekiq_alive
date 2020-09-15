@@ -42,6 +42,18 @@ RSpec.describe SidekiqAlive do
     expect(k.queue_prefix).to eq :sidekiq_alive
     k.queue_prefix = :other
     expect(k.queue_prefix).to eq :other
+
+    expect(k.enabled?).to be_truthy
+    k.enabled = false
+    expect(k.enabled?).to be_falsey
+  end
+
+  it 'configures enabled from DISABLE_SIDEKIQ_ALIVE ENV var' do
+    ENV['DISABLE_SIDEKIQ_ALIVE'] = 'true'
+
+    SidekiqAlive.config.set_defaults
+
+    expect(described_class.config.enabled?).to be_falsey
   end
 
   before do

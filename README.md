@@ -246,6 +246,13 @@ SidekiqAlive.setup do |config|
   # default: 'webrick'
   #
   #    config.server = 'puma'
+
+  # ==> Enabled
+  # To disable Sidekiq Alive.
+  # Can also be disabled with the DISABLE_SIDEKIQ_ALIVE environment variable.
+  # default: true
+  #
+  #    config.enabled = true
 end
 ```
 
